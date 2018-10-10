@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Tangerine">
+	<title>Travel Demo</title>
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+	<style type="text/css">
+		* {
+		  box-sizing: border-box;
+		}
+
+		img {
+		  vertical-align: middle;
+		  height: 400px;
+		}
+
+		.wrapper {
+			display: flex;
+		}
+
+		/* Position the image container (needed to position the left and right arrows) */
+		.container {
+		  flex: 0 0 55%;
+		  position: relative;
+		}
+
+		/* Hide the images by default */
+		.mySlides {
+		  display: none;
+		}
+
+		/* Add a pointer when hovering over the thumbnail images */
+		.cursor {
+		  cursor: pointer;
+		}
+
+		/* Next & previous buttons */
+		.prev,
+		.next {
+		  cursor: pointer;
+		  position: absolute;
+		  top: 40%;
+		  width: auto;
+		  padding: 16px;
+		  margin-top: -50px;
+		  color: white;
+		  font-weight: bold;
+		  font-size: 20px;
+		  border-radius: 0 3px 3px 0;
+		  user-select: none;
+		  -webkit-user-select: none;
+		}
+
+		/* Position the "next button" to the right */
+		.next {
+		  right: 0;
+		  border-radius: 3px 0 0 3px;
+		}
+
+		/* On hover, add a black background color with a little bit see-through */
+		.prev:hover,
+		.next:hover {
+		  background-color: rgba(0, 0, 0, 0.8);
+		}
+
+		/* Number text (1/3 etc) */
+		.numbertext {
+		  color: #f2f2f2;
+		  font-size: 12px;
+		  padding: 8px 12px;
+		  position: absolute;
+		  top: 0;
+		}
+
+		/* Container for image text */
+		.caption-container {
+		  text-align: center;
+		  background-color: #222;
+		  padding: 2px 16px;
+		  color: white;
+		}
+
+		.row:after {
+		  content: "";
+		  display: table;
+		  clear: both;
+		}
+
+		/* Six columns side by side */
+		.column {
+		  float: left;
+		  width: 16.66%;
+		}
+
+		/* Add a transparency effect for thumnbail images */
+		.demo {
+		  opacity: 0.6;
+		}
+
+		.active,
+		.demo:hover {
+		  opacity: 1;
+		}
+
+		.price-details {
+			flex: 1;
+		}
+
+		.price-box {
+			margin-left: 5px;
+			line-height: 40px;
+			border: 1px solid #ffecb3; 
+			background-color: #fffef6;
+		}
+
+		.price {
+			margin-left: 40px;
+			margin-right: 40px;
+			border-bottom: 1px grey dashed;
+		}
+
+		.unit {
+			font-size: 1.4em;
+			color: #fb5f10;
+		}
+
+		.num {
+			font-size: 2em;
+			color: #fb5f10;
+			margin-left: 5px;
+		}
+
+		.per {
+			margin-left: 5px;
+		}
+
+		.detail-tag {
+			list-style: none;
+		}
+
+		.detail-tag li {
+			display: inline;
+			color: #4dc965;
+			border: 1px solid #4dc965;
+			margin: 2px;
+			padding: 3px;
+		}
+
+		.manager-recomand {
+			display: flex;
+			margin-top: 20px;
+			margin-left: 20px;
+			border-bottom: 1px lightgrey solid;
+		}
+
+		.person-icon {
+			flex: 0 0 20%;
+		}
+
+		.person-icon i {
+			color: #009ff4;
+			font-size: 2em;
+			border: 1px solid;
+			border-radius: 50%;
+			padding: 20px;
+		}
+
+		.person-icon p {
+			margin-left: 15px;
+		}
+
+		.description {
+			flex: 1;
+			font-size: 1.1em;
+			margin-top: -20px;
+		}
+
+		.description h4 {
+			margin-bottom: 0;
+		}
+
+	 	.description ul {
+	 		margin-top: 0;
+	 		padding-left: 10px;
+	 		list-style: none;
+	 	}
+
+	 	.flight-info {
+	 		margin-top: 20px;
+	 		margin-left: 20px;
+	 		border-bottom: 1px lightgrey solid; 
+	 	}
+
+	 	.flight-info div {
+	 		margin-bottom: 10px;
+	 	}
+
+	 	.flight-info i {
+	 		color: #009ff4;
+	 		margin-right: 20px;
+	 	}
+
+	 	.service-number {
+	 		margin-left: 20px;
+	 	}
+
+	 	.place-description {
+	 		display: flex;
+	 		padding-bottom: 50px;
+	 		border-bottom: 1px lightgrey solid;
+	 	}
+
+	 	.word-content {
+	 		font-family: 'Tangerine', serif;
+	 		flex: 0 0 55%;
+	 	}
+
+	 	.word-content h2 {
+	 		text-align: center;
+	 	}
+
+	 	.word-content p {
+	 		line-height: 2em;
+	 		margin: 20px;
+	 	}
+
+	 	.video-content {
+	 		flex: 1;
+	 	}
+
+	 	.trip-details {
+	 		margin: 20px;
+	 	}
+
+	 	.trip-details h2 {
+	 		text-align: center;
+	 	}
+
+	 	.product-description {
+	 		margin: 40px;
+	 	}
+
+	 	.product-description h3 {
+	 		padding: 10px;
+	 		border-left: 3px solid #0090f2;
+	 	}
+
+	 	.product-description table {
+	 		line-height: 2em;
+	 		margin: 30px;
+	 		font-size: 1.1em;
+	 	}
+
+	 	.description-key {
+	 		padding-left: 50px;
+	 	}
+
+	 	.description-key i {
+	 		color: #0090f2;
+	 	}
+
+	 	.description-content {
+	 		padding-left: 50px;
+	 	}
+
+	 	.product-content {
+	 		margin: 50px;
+	 	}
+
+	 	.product-content h3 {
+	 		padding: 10px;
+	 		border-left: 3px solid #0090f2;
+	 	}
+
+	 	.daylist {
+	 		display: inline-flex;
+	 		list-style: none;
+	 	}
+
+	 	.day-item p:before {
+	 		content: "";
+	 		width: 8px;
+	 		height: 8px;
+	 		float: left;
+	 		margin: 7px 7px 0 0px;
+	 		background-color: #e1e1e1;
+	 		border-radius: 8px;
+	 	}
+
+	 	.day-item p:after {
+ 		    content: "";
+ 		    height: 1px;
+ 		    width: 60px;
+ 		    float: right;
+ 		    margin: 10px -2px 0 0;
+ 		    padding-left: 40px;
+ 		    background-color: #e1e1e1;	 		
+	 	}
+
+	 	.day-item-is-end p:before {
+	 		content: "";
+	 		width: 8px;
+	 		height: 8px;
+	 		float: left;
+	 		margin: 7px 7px 0 0px;
+	 		background-color: #e1e1e1;
+	 		border-radius: 8px;
+	 	}
+
+	 	.specific-schedule {
+	 		margin: 50px;
+	 	}
+
+	 	.specific-schedule h3 {
+	 		padding: 10px;
+	 		border-left: 3px solid #0090f2;
+	 	}
+
+	 	.day-location {
+	 		overflow: hidden;
+	 	}
+
+	 	.day-location ul {
+	 		box-shadow: 0 0 15px 1px rgba(0,0,0,0.6);
+	 		border-radius: 5px;
+	 		background: linear-gradient(#5DA6E1, #185282);
+	 		list-style: none;
+	 		display: inline-flex;
+	 		float: left;
+	 		padding: 0 10px 0 30px;
+	 		line-height: 36px;
+	 		color: white;
+	 	}
+
+	 	.day-location li {
+	 		margin-right: 42px;
+	 		position: relative;
+	 	}
+
+	 	.location-head:after {
+	 		content: "";
+	 		width: 36px;
+	 		height: 36px;
+	 		position: absolute;
+	 		top: 0;
+	 		z-index: 1;
+	 		left: 5px;
+	 		-webkit-transform: scale(0.707) rotate(45deg);
+	 		-moz-transform: scale(0.707) rotate(45deg);
+	 		-o-transform: scale(0.707) rotate(45deg);
+	 		transform: scale(0.707) rotate(45deg);
+
+	 		border-radius: 0 0 0 30px;
+	 		box-shadow: 2px -2px 1px 1px rgba(0,0,0,0.5),
+	 			3px -2px 1px 1px rgba(255,255,255,0.6);
+	 	}
+
+	 	.day-location-head, .accommodation-head, .food-head {
+	 		font-size: 1.1em;
+	 	}
+
+	 	.location-details, .accommodation-selection, .food-selection {
+	 		margin-left: 8px;
+	 		padding: 20px;
+	 		border-left: 1px solid #0090f2;
+	 	}
+
+	 	.sign-contract {
+	 		margin-left: -40px;
+	 		border-top: 1px lightgrey solid;
+	 	}
+
+	 	.sign-contract h2 {
+	 		text-align: center;
+	 	}
+
+	 	.flow-list {
+	 		display: inline-flex;
+	 		list-style: none;
+	 	}
+
+	 	.flow-list .flow-name {
+	 		text-align: center;
+	 		font-size: 1.1em;
+	 	}
+
+	 	.flow-list li {
+	 		margin-left: 20px;
+	 		text-align: center;
+	 	}
+
+	 	.flow-list i {
+	 		padding: 10px;
+	 		font-size: 2em;
+	 		color: #0090f2;
+	 		border: 1px solid #0090f2;
+	 		border-radius: 50%;
+	 	}
+
+	</style>
+</head>
+<body>
+	<h2>【加拿大浪漫野外游】一望无边的草原、高耸的山峰、清晨的树林、无尽的雪山 + 静谧的湖畔</h2>
+	<div class="wrapper">
+		<!-- Container for the image gallery -->
+		<div class="container">
+
+		  <!-- Full-width images with number text -->
+		  <div class="mySlides">
+		    <div class="numbertext">1 / 6</div>
+		      <img src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?auto=compress&cs=tinysrgb&h=350" style="width:100%">
+		  </div>
+
+		  <div class="mySlides">
+		    <div class="numbertext">2 / 6</div>
+		      <img src="https://www.canva.com/photo-editor/images/front.jpg" style="width:100%">
+		  </div>
+
+		  <div class="mySlides">
+		    <div class="numbertext">3 / 6</div>
+		      <img src="https://images.pexels.com/photos/60006/spring-tree-flowers-meadow-60006.jpeg?cs=srgb&dl=nature-flowers-sun-60006.jpg&fm=jpg" style="width:100%">
+		  </div>
+
+		  <div class="mySlides">
+		    <div class="numbertext">4 / 6</div>
+		      <img src="https://1.bp.blogspot.com/-IUlMKfxq6zE/U3r-K6suSoI/AAAAAAAAHCY/gM4fK6Tz9MM/s1600/natural-waterfall--picture-image.jpg" style="width:100%">
+		  </div>
+
+		  <div class="mySlides">
+		    <div class="numbertext">5 / 6</div>
+		      <img src="http://www.desktopwallpaperhd.net/wallpapers/0/4/landscapes-wallpaper-fengguangbizhi-fengjingbizhi-picture-image-1316.jpg" style="width:100%">
+		  </div>
+
+		  <div class="mySlides">
+		    <div class="numbertext">6 / 6</div>
+		      <img src="http://www.desktopwallpaperhd.net/wallpapers/0/6/landscapes-wallpaper-fengguangbizhi-fengjingbizhi-picture-image-1318.jpg" style="width:100%">
+		  </div>
+
+		  <!-- Next and previous buttons -->
+		  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+		  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+		  <!-- Image text -->
+		  <div class="caption-container">
+		    <p id="caption"></p>
+		  </div>
+
+		  <!-- Thumbnail images -->
+		  <div class="row">
+		    <div class="column">
+		      <img class="demo cursor" src="https://images.pexels.com/photos/236047/pexels-photo-236047.jpeg?auto=compress&cs=tinysrgb&h=350" style="width:100%; height: 65px;" onclick="currentSlide(1)" alt="一望无边的草原">
+		    </div>
+		    <div class="column"> 
+		      <img class="demo cursor" src="https://www.canva.com/photo-editor/images/front.jpg" style="width:100%; height: 65px;" onclick="currentSlide(2)" alt="高耸的山峰">
+		    </div>
+		    <div class="column">
+		      <img class="demo cursor" src="https://images.pexels.com/photos/60006/spring-tree-flowers-meadow-60006.jpeg?cs=srgb&dl=nature-flowers-sun-60006.jpg&fm=jpg" style="width:100%; height: 65px;" onclick="currentSlide(3)" alt="清晨的树林">
+		    </div>
+		    <div class="column">
+		      <img class="demo cursor" src="https://1.bp.blogspot.com/-IUlMKfxq6zE/U3r-K6suSoI/AAAAAAAAHCY/gM4fK6Tz9MM/s1600/natural-waterfall--picture-image.jpg" style="width:100%; height: 65px;" onclick="currentSlide(4)" alt="林间山泉">
+		    </div>
+		    <div class="column">
+		      <img class="demo cursor" src="http://www.desktopwallpaperhd.net/wallpapers/0/4/landscapes-wallpaper-fengguangbizhi-fengjingbizhi-picture-image-1316.jpg" style="width:100%; height: 65px;" onclick="currentSlide(5)" alt="无尽的雪山">
+		    </div> 
+		    <div class="column">
+		      <img class="demo cursor" src="http://www.desktopwallpaperhd.net/wallpapers/0/6/landscapes-wallpaper-fengguangbizhi-fengjingbizhi-picture-image-1318.jpg" style="width:100%; height: 65px;" onclick="currentSlide(6)" alt="静谧的湖畔">
+		    </div>
+		  </div>
+		</div>
+
+		<div class="price-details">
+			<div class="price-box">
+				<p class="price"><span class="unit">¥</span><span class="num">8888</span><span class="per">/人起</span></p>
+				<ul class="detail-tag">
+					<li>24小时免费接机</li>
+					<li>赠早餐</li>
+					<li>游船赏景</li>
+					<li>奇趣自然</li>
+				</ul>
+			</div>
+			<div class="manager-recomand">
+				<div class="person-icon">
+					<i class="fas fa-user"></i>
+					<p>Sarah</p>
+				</div>
+				<div class="description">
+					<h4>产品经理推荐：</h4>
+					<ul>
+						<li>★多伦多全天24小时免费接机</li>
+						<li>★抵达野营旅游地，感受加拿大自然奇景和野外乐趣</li>
+					</ul>
+				</div>
+			</div>
+			<div class="flight-info">
+				<div>					
+					<i class="fas fa-plane-departure" style="display: inline;"></i>
+					<p style="display: inline;"> 出发地 多伦多</p>	
+				</div>
+				<div>					
+					<i class="fas fa-plane-arrival" style="display: inline;"></i>
+					<p style="display: inline;">结束地 多伦多</p>
+				</div>
+			</div>
+			<div class="service-number">
+				<h3>温馨提示</h3>
+				<p>如您在订购时遇到任何问题 ，可拨打服务电话 <span style="color: #009ff4;">111-111-1111(中国)
+				000-000-0000(加拿大)</span> 咨询或者下单</p>
+			</div>	
+		</div>
+
+	</div>	
+	<div class="place-description">
+		<div class="word-content">
+			<h2>感受美丽的加拿大</h2>
+			<p>加拿大广袤的国土上，有着难以计数的奇观美景，多姿多彩的地形地貌，冰原、高山、谷地、湖泊、岛屿……在班夫国家公园，高山、湖泊、森林一年四季都变换着不同的颜色；在贾斯珀，暗夜星空保护区有着纯净无污染的天幕；在黄刀镇，一年多达240天都可以观赏到极光。枫叶国的冷暖人间，从东到西，从南到北。身临其境，在加拿大的你，会感受到这个国家自然、震撼、不娇饰、不做作的美。</p>
+		</div>
+		<div class="video-content">
+			<iframe width="580" height="350"
+			src="https://v.youku.com/v_show/id_XMzAxNzk5NTUy.html?spm=a2h0k.11417342.soresults.dtitle">
+			</iframe>
+		</div>
+	</div>
+	<div class="trip-details">
+		<h2>行程介绍</h2>
+		<div class="product-description">
+			<h3>产品概要</h3>
+			<table>
+				<tr>
+					<td class="description-key"><i class="fas fa-map-marked-alt"></i>&ensp; 景点数量	</td>
+					<td class="description-content">5个</td>
+					<td class="description-key"><i class="far fa-clock"></i>&ensp; 游玩天数</td>
+					<td class="description-content">5天</td>
+				</tr>
+				<tr>
+					<td class="description-key"><i class="fas fa-plane-departure"></i>&ensp; 出发地</td>
+					<td class="description-content">多伦多</td>
+					<td class="description-key"><i class="fas fa-plane-arrival"></i>&ensp; 结束地</td>
+					<td class="description-content">多伦多</td>
+				</tr>
+				<tr>
+					<td class="description-key"><i class="fas fa-globe"></i>&ensp; 服务语言</td>
+					<td class="description-content">5个</td>
+				</tr>
+			</table>
+		</div>
+		<div class="product-content">
+			<h3>行程概要</h3>
+			<div class="schedule-slider">
+				<ul class="daylist" style="margin-left: 0;">
+					<li class="day-item">
+						<p>DAY 1</p>
+						<ul style="margin: 0; padding: 0">
+							<li style="list-style: none">一望无边的草原</li>
+						</ul>
+					</li>
+					<li class="day-item">
+						<p>DAY 2</p>
+						<ul style="margin: 0; padding: 0">
+							<li style="list-style: none">高耸的山峰</li>
+						</ul>
+					</li>
+					<li class="day-item">
+						<p>DAY 3</p>
+						<ul style="margin: 0; padding: 0">
+							<li style="list-style: none">清晨的树林</li>
+						</ul>
+					</li>
+					<li class="day-item">
+						<p>DAY 4</p>
+						<ul style="margin: 0; padding: 0">
+							<li style="list-style: none">无尽的雪山</li>
+							<li style="list-style: none">林间山泉</li>
+						</ul>
+					</li>
+					<li class="day-item-is-end">
+						<p style="">DAY 5</p>
+						<ul style="margin: 0; padding: 0">
+							<li style="list-style: none">静谧的湖畔</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+		<div class="specific-schedule">
+			<h3>行程详情</h3>
+			<div class="day-location">
+				<ul>
+					<li class="location-head">D1</li>
+					<li>原住地 > 多伦多</li>
+				</ul>
+			</div>
+			<div class="day-location-content">
+				<div class="day-location-head">		
+					<i class="fas fa-book-reader" style="color: #0090f2"></i><span style="margin-left: 10px">概述</span>
+				</div>
+				<div class="location-details">
+					当您的航班抵达多伦多后，我们会有专人在机场接机，将您送往酒店休息
+					<br>
+					行程简介：
+					<br>
+					若您在<strong>3:00pm</strong>之前抵达，我们推荐您自费游览Unionville欧洲风情小镇，让第一天到达的您也有丰富精彩的活动 。接机后，前往多伦多知名的百年历史小镇——Unionville，中文译为"渔人村"。小街上有高耸的古朴教堂、漂亮的花园洋房、精致的古董小店、还有欧式咖啡店、面包坊、点心铺、家居店、服饰店……尽显欧洲风情。每个店铺虽小巧，但却精致；颇具韵味。繁花似锦的主街两侧，人头攒动的露天餐厅，各种Homemade的冰激凌、奇奇怪怪口味的松露巧克力，运气好的话，还有仲夏夜的免费露天音乐会欣赏。
+					<br>
+					<br>
+					注意事项:
+					<br>
+					* 该行程是第一天接机后，安排的特色自由行，2人成行
+					<br>
+					* 需支付来回接送小费CAD$2/人(小费请在团上支付给导游)
+					<br>
+					* 开团时间：5月18日-10月19日，全程自由行，游览时间共计3小时。
+					<br>
+					* 具体时间：根据客人航班到达的时间统一安排，具体时间会在您的订单确认后告知
+					<br>
+					* 出发地点：入住酒店的大厅
+					<br>
+					* 因返程为固定时间，如客人未能准时随团返回或想自行延长游玩时间，客人须自行解决返回住宿酒店的交通，且费用自理
+					<br>
+					* 一旦预订，取消/更改规定遵循大团操作方式
+					<br>
+					* 如果您需要参加此行程，请提前付费预订，因为此行程需要提前安排车辆，所以不接受抵达当天付费参加。
+				</div>
+				<div class="accommodation-head">
+					<i class="far fa-building" style="color: #0090f2"></i><span style="margin-left: 10px">住宿</span>
+				</div>
+				<div class="accommodation-selection">
+					Quality
+					<br>
+					Comfort
+					<br>
+					Park Inn by Radisson
+					<br>
+					Best Western
+					<br>
+					或 同等条件住宿
+				</div>
+				<div class="food-head">
+					<i class="fas fa-utensils" style="color: #0090f2"></i><span style="margin-left: 10px">餐食</span>
+				</div>
+				<div class="food-selection">
+					早餐：自理
+					<br>
+                    午餐：自理
+                    <br>
+                    晚餐：自理
+				</div>
+			</div>
+			<div class="day-location">
+				<ul>
+					<li class="location-head">D2</li>
+					<li>多伦多 > 地点2</li>
+				</ul>
+			</div>
+			<div class="day-location-content">
+				<div class="day-location-head">		
+					<i class="fas fa-book-reader" style="color: #0090f2"></i><span style="margin-left: 10px">概述</span>
+				</div>
+				<div class="location-details">
+					当您的航班抵达多伦多后，我们会有专人在机场接机，将您送往酒店休息
+					<br>
+					行程简介：
+					<br>
+					若您在<strong>3:00pm</strong>之前抵达，我们推荐您自费游览Unionville欧洲风情小镇，让第一天到达的您也有丰富精彩的活动 。接机后，前往多伦多知名的百年历史小镇——Unionville，中文译为"渔人村"。小街上有高耸的古朴教堂、漂亮的花园洋房、精致的古董小店、还有欧式咖啡店、面包坊、点心铺、家居店、服饰店……尽显欧洲风情。每个店铺虽小巧，但却精致；颇具韵味。繁花似锦的主街两侧，人头攒动的露天餐厅，各种Homemade的冰激凌、奇奇怪怪口味的松露巧克力，运气好的话，还有仲夏夜的免费露天音乐会欣赏。
+					<br>
+					<br>
+					注意事项:
+					<br>
+					* 该行程是第一天接机后，安排的特色自由行，2人成行
+					<br>
+					* 需支付来回接送小费CAD$2/人(小费请在团上支付给导游)
+					<br>
+					* 开团时间：5月18日-10月19日，全程自由行，游览时间共计3小时。
+					<br>
+					* 具体时间：根据客人航班到达的时间统一安排，具体时间会在您的订单确认后告知
+					<br>
+					* 出发地点：入住酒店的大厅
+					<br>
+					* 因返程为固定时间，如客人未能准时随团返回或想自行延长游玩时间，客人须自行解决返回住宿酒店的交通，且费用自理
+					<br>
+					* 一旦预订，取消/更改规定遵循大团操作方式
+					<br>
+					* 如果您需要参加此行程，请提前付费预订，因为此行程需要提前安排车辆，所以不接受抵达当天付费参加。
+				</div>
+				<div class="accommodation-head">
+					<i class="far fa-building" style="color: #0090f2"></i><span style="margin-left: 10px">住宿</span>
+				</div>
+				<div class="accommodation-selection">
+					Quality
+					<br>
+					Comfort
+					<br>
+					Park Inn by Radisson
+					<br>
+					Best Western
+					<br>
+					或 同等条件住宿
+				</div>
+				<div class="food-head">
+					<i class="fas fa-utensils" style="color: #0090f2"></i><span style="margin-left: 10px">餐食</span>
+				</div>
+				<div class="food-selection">
+					早餐：自理
+					<br>
+                    午餐：自理
+                    <br>
+                    晚餐：自理
+				</div>
+			</div>
+			<div class="day-location">
+				<ul>
+					<li class="location-head">D3</li>
+					<li>地点2 > 地点3</li>
+				</ul>
+			</div>
+			<div class="day-location-content">
+				<div class="day-location-head">		
+					<i class="fas fa-book-reader" style="color: #0090f2"></i><span style="margin-left: 10px">概述</span>
+				</div>
+				<div class="location-details">
+					当您的航班抵达多伦多后，我们会有专人在机场接机，将您送往酒店休息
+					<br>
+					行程简介：
+					<br>
+					若您在<strong>3:00pm</strong>之前抵达，我们推荐您自费游览Unionville欧洲风情小镇，让第一天到达的您也有丰富精彩的活动 。接机后，前往多伦多知名的百年历史小镇——Unionville，中文译为"渔人村"。小街上有高耸的古朴教堂、漂亮的花园洋房、精致的古董小店、还有欧式咖啡店、面包坊、点心铺、家居店、服饰店……尽显欧洲风情。每个店铺虽小巧，但却精致；颇具韵味。繁花似锦的主街两侧，人头攒动的露天餐厅，各种Homemade的冰激凌、奇奇怪怪口味的松露巧克力，运气好的话，还有仲夏夜的免费露天音乐会欣赏。
+					<br>
+					<br>
+					注意事项:
+					<br>
+					* 该行程是第一天接机后，安排的特色自由行，2人成行
+					<br>
+					* 需支付来回接送小费CAD$2/人(小费请在团上支付给导游)
+					<br>
+					* 开团时间：5月18日-10月19日，全程自由行，游览时间共计3小时。
+					<br>
+					* 具体时间：根据客人航班到达的时间统一安排，具体时间会在您的订单确认后告知
+					<br>
+					* 出发地点：入住酒店的大厅
+					<br>
+					* 因返程为固定时间，如客人未能准时随团返回或想自行延长游玩时间，客人须自行解决返回住宿酒店的交通，且费用自理
+					<br>
+					* 一旦预订，取消/更改规定遵循大团操作方式
+					<br>
+					* 如果您需要参加此行程，请提前付费预订，因为此行程需要提前安排车辆，所以不接受抵达当天付费参加。
+				</div>
+				<div class="accommodation-head">
+					<i class="far fa-building" style="color: #0090f2"></i><span style="margin-left: 10px">住宿</span>
+				</div>
+				<div class="accommodation-selection">
+					Quality
+					<br>
+					Comfort
+					<br>
+					Park Inn by Radisson
+					<br>
+					Best Western
+					<br>
+					或 同等条件住宿
+				</div>
+				<div class="food-head">
+					<i class="fas fa-utensils" style="color: #0090f2"></i><span style="margin-left: 10px">餐食</span>
+				</div>
+				<div class="food-selection">
+					早餐：自理
+					<br>
+                    午餐：自理
+                    <br>
+                    晚餐：自理
+				</div>
+			</div>
+			<div class="day-location">
+				<ul>
+					<li class="location-head">D4</li>
+					<li>地点3 > 地点4 > 地点5</li>
+				</ul>
+			</div>
+			<div class="day-location-content">
+				<div class="day-location-head">		
+					<i class="fas fa-book-reader" style="color: #0090f2"></i><span style="margin-left: 10px">概述</span>
+				</div>
+				<div class="location-details">
+					当您的航班抵达多伦多后，我们会有专人在机场接机，将您送往酒店休息
+					<br>
+					行程简介：
+					<br>
+					若您在<strong>3:00pm</strong>之前抵达，我们推荐您自费游览Unionville欧洲风情小镇，让第一天到达的您也有丰富精彩的活动 。接机后，前往多伦多知名的百年历史小镇——Unionville，中文译为"渔人村"。小街上有高耸的古朴教堂、漂亮的花园洋房、精致的古董小店、还有欧式咖啡店、面包坊、点心铺、家居店、服饰店……尽显欧洲风情。每个店铺虽小巧，但却精致；颇具韵味。繁花似锦的主街两侧，人头攒动的露天餐厅，各种Homemade的冰激凌、奇奇怪怪口味的松露巧克力，运气好的话，还有仲夏夜的免费露天音乐会欣赏。
+					<br>
+					<br>
+					注意事项:
+					<br>
+					* 该行程是第一天接机后，安排的特色自由行，2人成行
+					<br>
+					* 需支付来回接送小费CAD$2/人(小费请在团上支付给导游)
+					<br>
+					* 开团时间：5月18日-10月19日，全程自由行，游览时间共计3小时。
+					<br>
+					* 具体时间：根据客人航班到达的时间统一安排，具体时间会在您的订单确认后告知
+					<br>
+					* 出发地点：入住酒店的大厅
+					<br>
+					* 因返程为固定时间，如客人未能准时随团返回或想自行延长游玩时间，客人须自行解决返回住宿酒店的交通，且费用自理
+					<br>
+					* 一旦预订，取消/更改规定遵循大团操作方式
+					<br>
+					* 如果您需要参加此行程，请提前付费预订，因为此行程需要提前安排车辆，所以不接受抵达当天付费参加。
+				</div>
+				<div class="accommodation-head">
+					<i class="far fa-building" style="color: #0090f2"></i><span style="margin-left: 10px">住宿</span>
+				</div>
+				<div class="accommodation-selection">
+					Quality
+					<br>
+					Comfort
+					<br>
+					Park Inn by Radisson
+					<br>
+					Best Western
+					<br>
+					或 同等条件住宿
+				</div>
+				<div class="food-head">
+					<i class="fas fa-utensils" style="color: #0090f2"></i><span style="margin-left: 10px">餐食</span>
+				</div>
+				<div class="food-selection">
+					早餐：自理
+					<br>
+                    午餐：自理
+                    <br>
+                    晚餐：自理
+				</div>
+			</div>
+			<div class="day-location">
+				<ul>
+					<li class="location-head">D5</li>
+					<li>地点5 > 多伦多</li>
+				</ul>
+			</div>
+			<div class="day-location-content">
+				<div class="day-location-head">		
+					<i class="fas fa-book-reader" style="color: #0090f2"></i><span style="margin-left: 10px">概述</span>
+				</div>
+				<div class="location-details">
+					当您的航班抵达多伦多后，我们会有专人在机场接机，将您送往酒店休息
+					<br>
+					行程简介：
+					<br>
+					若您在<strong>3:00pm</strong>之前抵达，我们推荐您自费游览Unionville欧洲风情小镇，让第一天到达的您也有丰富精彩的活动 。接机后，前往多伦多知名的百年历史小镇——Unionville，中文译为"渔人村"。小街上有高耸的古朴教堂、漂亮的花园洋房、精致的古董小店、还有欧式咖啡店、面包坊、点心铺、家居店、服饰店……尽显欧洲风情。每个店铺虽小巧，但却精致；颇具韵味。繁花似锦的主街两侧，人头攒动的露天餐厅，各种Homemade的冰激凌、奇奇怪怪口味的松露巧克力，运气好的话，还有仲夏夜的免费露天音乐会欣赏。
+					<br>
+					<br>
+					注意事项:
+					<br>
+					* 该行程是第一天接机后，安排的特色自由行，2人成行
+					<br>
+					* 需支付来回接送小费CAD$2/人(小费请在团上支付给导游)
+					<br>
+					* 开团时间：5月18日-10月19日，全程自由行，游览时间共计3小时。
+					<br>
+					* 具体时间：根据客人航班到达的时间统一安排，具体时间会在您的订单确认后告知
+					<br>
+					* 出发地点：入住酒店的大厅
+					<br>
+					* 因返程为固定时间，如客人未能准时随团返回或想自行延长游玩时间，客人须自行解决返回住宿酒店的交通，且费用自理
+					<br>
+					* 一旦预订，取消/更改规定遵循大团操作方式
+					<br>
+					* 如果您需要参加此行程，请提前付费预订，因为此行程需要提前安排车辆，所以不接受抵达当天付费参加。
+				</div>
+				<div class="accommodation-head">
+					<i class="far fa-building" style="color: #0090f2"></i><span style="margin-left: 10px">住宿</span>
+				</div>
+				<div class="accommodation-selection">
+					Quality
+					<br>
+					Comfort
+					<br>
+					Park Inn by Radisson
+					<br>
+					Best Western
+					<br>
+					或 同等条件住宿
+				</div>
+				<div class="food-head">
+					<i class="fas fa-utensils" style="color: #0090f2"></i><span style="margin-left: 10px">餐食</span>
+				</div>
+				<div class="food-selection">
+					早餐：自理
+					<br>
+                    午餐：自理
+                    <br>
+                    晚餐：自理
+				</div>
+			</div>
+		</div>
+		<div class="sign-contract">
+			<h2>开启你美妙的旅程吧！</h2>
+			<ul class="flow-list">
+				<li>
+					<i class="fas fa-map-marked-alt"></i>
+					<p class="flow-name">选择产品</p>
+					<p class="flow-desc">选择心仪产品，选择出行时间、出行人数等预订信息后联系客服代表预订您的行程</p>
+				</li>
+				<li>
+					<i class="fas fa-file-signature"></i>
+					<p class="flow-name">填写订单</p>
+					<p class="flow-desc">核对行程信息，正确填写联系人、旅客等信息，确认预订条款后去支付所需款项</p>
+				</li>
+				<li>
+					<i class="far fa-credit-card"></i>
+					<p class="flow-name">支付</p>
+					<p class="flow-desc">选择适合您的付款方式，并支付确定的金额</p>
+				</li>
+				<li>
+					<i class="fas fa-receipt"></i>
+					<p class="flow-name">收到电子票</p>
+					<p class="flow-desc">我们为您确认产品资源安排妥当行程后会向您发送【电子票】</p>
+				</li>
+				<li>
+					<i class="fab fa-tripadvisor"></i>
+					<p class="flow-name">快乐出游</p>
+					<p class="flow-desc">出发前打印您的电子票，并于出团当日携带好电子票以及其他有效证件参团。</p>
+				</li>
+				<li>
+					<i class="far fa-edit"></i>
+					<p class="flow-name">点评分享</p>
+					<p class="flow-desc">游玩归来发表行程点评分享您的美好旅程！</p>
+				</li>
+			</ul>
+		</div>
+	</div>
+<script>
+	var slideIndex = 1;
+	showSlides(slideIndex);
+
+	function plusSlides(n) {
+	  showSlides(slideIndex += n);
+	}
+
+	function currentSlide(n) {
+	  showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+	  var i;
+	  var slides = document.getElementsByClassName("mySlides");
+	  var dots = document.getElementsByClassName("demo");
+	  var captionText = document.getElementById("caption");
+	  if (n > slides.length) {slideIndex = 1}
+	  if (n < 1) {slideIndex = slides.length}
+	  for (i = 0; i < slides.length; i++) {
+	      slides[i].style.display = "none";
+	  }
+	  for (i = 0; i < dots.length; i++) {
+	      dots[i].className = dots[i].className.replace(" active", "");
+	  }
+	  slides[slideIndex-1].style.display = "block";
+	  dots[slideIndex-1].className += " active";
+	  captionText.innerHTML = dots[slideIndex-1].alt;
+	}
+</script>
+</body>
+</html>
